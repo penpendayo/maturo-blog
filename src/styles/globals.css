@@ -23,7 +23,7 @@
     @apply -ml-3 my-6 pl-4 py-2 border-l-4 border-green-800;
   }
   h4 {
-    @apply text-lg border-b-2 border-green-800 my-6 inline-block;
+    @apply inline-block my-6 text-lg border-b-2 border-green-800;
   }
 
   p {
@@ -53,8 +53,10 @@
   li > ul {
     @apply mb-1 ml-8;
   }
-  hr {
-    @apply my-6 border-gray-300;
+  blockquote {
+    @apply relative p-8 pt-10 before:font-serif bg-gray-300 rounded-md;
+    @apply before:content-['“'] before:absolute before:left-3 before:top-0 before:text-gray-400 before:font-serif before:text-6xl;
+    @apply after:content-['”'] after:absolute after:-bottom-7 after:right-3 after:pb-0 after:text-gray-400 after:font-serif after:text-6xl;
   }
 }
 @tailwind components;
