@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { CreatedAt } from "src/components/atoms/CreatedAt";
 import { UpdatedAt } from "src/components/atoms/UpdatedAt";
 import SnsButton from "src/components/molecules/SnsButton";
@@ -5,6 +6,10 @@ import Layout from "src/components/templates/Layout";
 import { postDataType } from "src/type/postData";
 
 const Article: React.FC<postDataType> = ({ postData }) => {
+  const containerElem = useRef(null);
+  useEffect(() => {
+    (window as any).twttr?.widgets?.load(containerElem.current);
+  }, []);
   return (
     <Layout>
       <article className="mb-10">
@@ -13,7 +18,10 @@ const Article: React.FC<postDataType> = ({ postData }) => {
           {postData.updatedAt && <UpdatedAt updatedAt={postData.updatedAt} />}
           <CreatedAt createdAt={postData.createdAt} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <div
+          ref={containerElem}
+          dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
+        />
       </article>
       <SnsButton
         url={`https://maturo.penpen-dev.com/${postData.id}`}
