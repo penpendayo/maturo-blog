@@ -14,9 +14,7 @@ import CustomLink from "src/components/utils/CustomLink";
 const Article: React.FC<postDataType> = ({ postData }) => {
   const containerElem = useRef(null);
   useEffect(() => {
-    setTimeout(() => {
       (window as any).twttr?.widgets?.load(containerElem.current);
-    }, 2000);
   }, []);
   return (
     <Layout>
