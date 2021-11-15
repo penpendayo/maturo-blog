@@ -53,10 +53,19 @@
   li > ul {
     @apply mb-1 ml-8;
   }
+  ol,
+  ul {
+    @apply pl-5;
+  }
   blockquote {
     @apply relative p-8 pt-10 before:font-serif bg-gray-300 rounded-md;
     @apply before:content-['“'] before:absolute before:left-3 before:top-0 before:text-gray-400 before:font-serif before:text-6xl;
     @apply after:content-['”'] after:absolute after:-bottom-7 after:right-3 after:pb-0 after:text-gray-400 after:font-serif after:text-6xl;
+  }
+  nav {
+    @apply p-5  mb-6 border border-gray-400 relative ;
+    @apply before:content-['目次'] before:block  before:text-xl before:text-center;
+
   }
 }
 @tailwind components;

@@ -1,14 +1,22 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { CreatedAt } from "src/components/atoms/CreatedAt";
 import { UpdatedAt } from "src/components/atoms/UpdatedAt";
 import SnsButton from "src/components/molecules/SnsButton";
 import Layout from "src/components/templates/Layout";
 import { postDataType } from "src/type/postData";
+import rehypeSlug from "rehype-slug";
+import rehypeToc from "rehype-toc";
+import rehypeParse from "rehype-parse";
+import { unified } from "unified";
+import rehypeReact from "rehype-react";
+import CustomLink from "src/components/utils/CustomLink";
 
 const Article: React.FC<postDataType> = ({ postData }) => {
   const containerElem = useRef(null);
   useEffect(() => {
-    (window as any).twttr?.widgets?.load(containerElem.current);
+    setTimeout(() => {
+      (window as any).twttr?.widgets?.load(containerElem.current);
+    }, 2000);
   }, []);
   return (
     <Layout>
@@ -18,10 +26,9 @@ const Article: React.FC<postDataType> = ({ postData }) => {
           {postData.updatedAt && <UpdatedAt updatedAt={postData.updatedAt} />}
           <CreatedAt createdAt={postData.createdAt} />
         </div>
-        <div
-          ref={containerElem}
-          dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-        />
+        <div ref={containerElem}>
+          {processor.processSync(postData.contentHtml).result}
+        </div>
       </article>
       <SnsButton
         url={`https://maturo.penpen-dev.com/${postData.id}`}
@@ -30,5 +37,18 @@ const Article: React.FC<postDataType> = ({ postData }) => {
     </Layout>
   );
 };
+
+const processor = unified()
+  .use(rehypeParse, { fragment: true }) // fragmentは必ずtrueにする
+  .use(rehypeSlug)
+  .use(rehypeToc, {
+    headings: ["h2", "h3"],
+  })
+  .use(rehypeReact, {
+    createElement: React.createElement,
+    components: {
+      a: CustomLink,
+    },
+  });
 
 export default Article;
