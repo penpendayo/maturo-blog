@@ -13,14 +13,14 @@
     @apply text-2xl;
   }
   article h2 {
-    @apply -ml-3 pl-4 py-2 border-l-4 border-green-800;
+    @apply -ml-1 pl-4 py-2 border-l-4 border-green-800;
   }
 
   h3 {
     @apply text-lg;
   }
   article h3 {
-    @apply -ml-3 my-6 pl-4 py-2 border-l-4 border-green-800;
+    @apply -ml-1 my-6 pl-4 py-2 border-l-4 border-green-800;
   }
   h4 {
     @apply inline-block my-6 text-lg border-b-2 border-green-800;
