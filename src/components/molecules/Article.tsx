@@ -11,6 +11,7 @@ import { unified } from "unified";
 import rehypeReact from "rehype-react";
 import CustomLink from "src/components/utils/CustomLink";
 import CustomImg from "src/components/utils/CustomImg";
+import CustomVideo from "../utils/CustomVideo";
 
 const Article: React.FC<postDataType> = ({ postData }) => {
   const containerElem = useRef(null);
@@ -50,6 +51,7 @@ const processor = unified()
     components: {
       a: CustomLink,
       img: CustomImg,
+      video: CustomVideo,
     },
   });
 
