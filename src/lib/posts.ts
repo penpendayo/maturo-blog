@@ -1,28 +1,34 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import fetch from "isomorphic-fetch";
 
-const postsDirectory = path.join(process.cwd(), "contents");
+const postsDirectory = path.join(
+  "http://localhost:8000/wp-json/custom/v1/allposts"
+);
 
 type ArticleType = {
+  content:string;
   createdAt: string;
   title: string;
-  updatedAt?: string;
+  updatedAt: string;
+  excerpt:string;
+  slug:string;
+  category:{name:string};
 };
 
-export function getSortedPostsData() {
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
-    const id = fileName.replace(/\.html$/, "");
+const getAllArticleData = async () => {
+  const data = await fetch(postsDirectory);
+  const allArticleData: ArticleType[] = await data.json();
+  return allArticleData;
+};
 
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-
-    const matterResult = matter(fileContents);
-
+export async function getSortedPostsData() {
+  const allArticleData = await getAllArticleData();
+  const allPostsData = allArticleData.map((articleData) => {
     return {
-      id,
-      ...(matterResult.data as ArticleType),
+      id: articleData.slug,
+      ...articleData,
     };
   });
   return allPostsData.sort((a, b) => {
@@ -34,26 +40,24 @@ export function getSortedPostsData() {
   });
 }
 
-export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames.map((fileName) => {
+export async function getAllPostIds() {
+  const allArticleData = await getAllArticleData();
+  return allArticleData.map((articleData) => {
     return {
       params: {
-        id: fileName.replace(/\.html$/, ""),
+        id: articleData.slug
       },
     };
   });
 }
 
 export async function getPostData(id: string) {
-  const fullPath = path.join(postsDirectory, `${id}.html`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
 
-  const matterResult = matter(fileContents);
-  const contentHtml = matterResult.content
+  const allArticleData = await getAllArticleData();
+  const targetArticleData=allArticleData.find((articleData,i)=>articleData.slug===id)
   return {
     id,
-    contentHtml,
-    ...(matterResult.data as ArticleType),
+    contentHtml: targetArticleData.content,
+    ...targetArticleData ,
   };
 }
