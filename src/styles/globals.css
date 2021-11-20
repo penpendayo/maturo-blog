@@ -4,7 +4,7 @@
     @apply text-gray-700;
   }
   body {
-    @apply bg-gray-200;
+    @apply leading-relaxed bg-gray-200;
   }
   h1 {
     @apply text-3xl;
@@ -63,9 +63,8 @@
     @apply after:content-['”'] after:absolute after:-bottom-7 after:right-3 after:pb-0 after:text-gray-400 after:font-serif after:text-6xl;
   }
   nav {
-    @apply p-5  mb-6 border border-gray-400 relative inline-block;
-    @apply before:content-['目次'] before:block  before:text-xl before:text-center before:mb-4;
-
+    @apply relative mb-6 p-5 w-max border border-gray-400;
+    @apply before:content-['目次'] before:block before:mb-4 before:text-center before:text-xl;
   }
 }
 @tailwind components;
