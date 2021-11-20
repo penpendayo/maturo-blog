@@ -7,9 +7,9 @@ type Props = {
 
 export const CreatedAt: React.VFC<Props> = ({ createdAt }) => {
   return (
-      <small className="block">
-        <FaRegClock className="inline mr-1" />
-        <Date dateString={createdAt} />
-      </small>
+    <small className="block">
+      <FaRegClock className="inline mr-1" />
+      <Date dateString={createdAt} dateType={"datePublished"} />
+    </small>
   );
 };

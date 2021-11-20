@@ -8,9 +8,9 @@ type Props = {
 
 export const UpdatedAt: React.VFC<Props> = ({ updatedAt }) => {
   return (
-      <small className="block">
-        <FaHistory className="inline mr-1" />
-        <Date dateString={updatedAt} />
-      </small>
+    <small className="block">
+      <FaHistory className="inline mr-1" />
+      <Date dateString={updatedAt} dateType={"dateModified"} />
+    </small>
   );
 };
