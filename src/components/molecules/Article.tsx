@@ -14,14 +14,16 @@ import CustomLink from "src/components/utils/CustomLink";
 const Article: React.FC<postDataType> = ({ postData }) => {
   const containerElem = useRef(null);
   useEffect(() => {
-      (window as any).twttr?.widgets?.load(containerElem.current);
+    (window as any).twttr?.widgets?.load(containerElem.current);
   }, []);
   return (
     <Layout>
       <article className="mb-10">
         <h2 className="border-b-2">{postData.title}</h2>
         <div className="mb-4 mt-2 text-right">
-          {postData.updatedAt && <UpdatedAt updatedAt={postData.updatedAt} />}
+          {postData.updatedAt !== postData.createdAt && (
+            <UpdatedAt updatedAt={postData.updatedAt} />
+          )}
           <CreatedAt createdAt={postData.createdAt} />
         </div>
         <div ref={containerElem}>
