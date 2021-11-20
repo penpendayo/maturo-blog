@@ -7,16 +7,19 @@ type Props = {
 };
 
 const CustomImg: React.FC = ({ src, alt, width, height }: Props) => {
-  const filename = src.split("/")[5];
-  const saveDir = "/img";
-  return (
-    <img
-      src={`${saveDir}/${filename}`}
-      alt={alt}
-      width={width}
-      height={height}
-    />
-  );
+  if (src.startsWith("http://localhost:8000")) {
+    const filename = src.split("/")[5];
+    const saveDir = "/img";
+    return (
+      <img
+        src={`${saveDir}/${filename}`}
+        alt={alt}
+        width={width}
+        height={height}
+      />
+    );
+  }
+  return <img src={src} alt={alt} width={width} height={height} />;
 };
 
 export default CustomImg;
