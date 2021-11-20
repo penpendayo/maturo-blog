@@ -6,8 +6,9 @@ type Props = {
   height: number;
 };
 
-const CustomImg: React.FC = ({ src, alt, width, height }: Props) => {
-  if (src.startsWith("http://localhost:8000")) {
+const CustomImg: React.FC = (props: Props) => {
+  if (props.src.startsWith("http://localhost:8000")) {
+    const { src, alt, width, height } = props;
     const filename = src.split("/")[5];
     const saveDir = "/img";
     return (
@@ -19,7 +20,7 @@ const CustomImg: React.FC = ({ src, alt, width, height }: Props) => {
       />
     );
   }
-  return <img src={src} alt={alt} width={width} height={height} />;
+  return <img {...props} />; // eslint-disable-line
 };
 
 export default CustomImg;
