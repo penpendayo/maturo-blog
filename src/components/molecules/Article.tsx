@@ -10,6 +10,7 @@ import rehypeParse from "rehype-parse";
 import { unified } from "unified";
 import rehypeReact from "rehype-react";
 import CustomLink from "src/components/utils/CustomLink";
+import CustomImg from "src/components/utils/CustomImg";
 
 const Article: React.FC<postDataType> = ({ postData }) => {
   const containerElem = useRef(null);
@@ -48,6 +49,7 @@ const processor = unified()
     createElement: React.createElement,
     components: {
       a: CustomLink,
+      img: CustomImg,
     },
   });
 
