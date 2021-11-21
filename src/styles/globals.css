@@ -25,7 +25,9 @@
   h4 {
     @apply inline-block my-6 text-lg border-b-2 border-green-800;
   }
-
+  h5 {
+    @apply mb-3;
+  }
   p {
     @apply mb-4;
   }
