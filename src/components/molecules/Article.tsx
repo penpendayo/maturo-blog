@@ -44,7 +44,7 @@ const processor = unified()
   .use(rehypeParse, { fragment: true }) // fragmentは必ずtrueにする
   .use(rehypeSlug)
   .use(rehypeToc, {
-    headings: ["h2", "h3"],
+    headings: ["h2", "h3", "h4"],
   })
   .use(rehypeReact, {
     createElement: React.createElement,
